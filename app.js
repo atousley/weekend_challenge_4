@@ -6,6 +6,7 @@ var pg = require('pg');
 var new_task = require('./routes/new_task');
 var get_all = require('./routes/get_all');
 var complete = require('./routes/complete');
+var deleteTask = require('./routes/delete');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/new_task', new_task);
 app.use('/get_all', get_all);
 app.use('/complete', complete);
+app.use('/delete', deleteTask);
 
 
 app.get('/*', function  (req, res) {

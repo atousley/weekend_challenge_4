@@ -1,8 +1,8 @@
 $(document).ready(function(){
     getTasks();
-    getComplete();
     $('#task_form').on('submit', addTask);
     $('.task_list').on('click', '.complete', completeTask);
+    $('.task_list').on('click', '.delete', deleteTask);
 });
 
 function addTask() {
@@ -46,6 +46,7 @@ function getTasks() {
         success: function (data) {
             $('.task_list').children().remove();
             appendTasks(data);
+            getComplete();
         }
     });
 }
@@ -105,3 +106,27 @@ function showComplete(data) {
         $('#task-' + task.id).find('.complete').text('Done!');
     });
 }
+
+function deleteTask() {
+    event.preventDefault();
+
+    var deleted = {};
+    var index = $(this).data('delete');
+
+    deleted.task = index;
+    //console.log(deleted);
+
+    $.ajax({
+        type: 'POST',
+        url: '/delete',
+        data: deleted,
+        success: function(data) {
+            if(data) {
+                getTasks();
+            } else {
+                console.log('error');
+            }
+        }
+    });
+}
+
