@@ -58,7 +58,6 @@ function appendTasks(data) {
 
         var $el = $('.task_list').children().last();
 
-        //$el.append('<p>Task Id: ' + task.id + ' </p>');
         $el.append('<p>Task: ' + task.task + '</p>');
         $el.append('<button class="complete" data-id = " '+ task.id +' ">Complete</button>');
         $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
@@ -72,7 +71,6 @@ function completeTask() {
     var index = $(this).data('id');
 
     completed.task = index;
-    //console.log(completed);
 
     $.ajax({
         type: 'POST',
@@ -101,9 +99,19 @@ function getComplete() {
 function showComplete(data) {
 
     data.forEach(function(task) {
-        $('#task-' + task.id).addClass('completed');
-        $('#task-' + task.id).find('.complete').addClass('checked');
-        $('#task-' + task.id).find('.complete').text('Done!');
+        $('#task-' + task.id).remove();
+
+        $('.completed_list').append('<div class="tasks" id="task-' + task.id + '"></div>');
+
+        var $el = $('.completed_list').children().last();
+
+        $el.append('<p>Task: ' + task.task + '</p>');
+        $el.append('<button class="complete" data-id = " '+ task.id +' ">Complete</button>');
+        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
+
+        $el.addClass('completed');
+        $el.find('.complete').addClass('checked');
+        $el.find('.complete').text('Done!');
     });
 }
 
@@ -116,7 +124,6 @@ function deleteTask() {
         var index = $(this).data('delete');
 
         deleted.task = index;
-        //console.log(deleted);
 
         $.ajax({
             type: 'POST',
@@ -132,4 +139,3 @@ function deleteTask() {
         });
     }
 }
-
