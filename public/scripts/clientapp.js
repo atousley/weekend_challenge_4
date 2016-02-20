@@ -58,7 +58,7 @@ function appendTasks(data) {
 
         var $el = $('.task_list').children().last();
 
-        $el.append('<p>Task Id: ' + task.id + ' </p>');
+        //$el.append('<p>Task Id: ' + task.id + ' </p>');
         $el.append('<p>Task: ' + task.task + '</p>');
         $el.append('<button class="complete" data-id = " '+ task.id +' ">Complete</button>');
         $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
@@ -110,23 +110,26 @@ function showComplete(data) {
 function deleteTask() {
     event.preventDefault();
 
-    var deleted = {};
-    var index = $(this).data('delete');
+  var ask = confirm('Are you sure you want to delete this task?');
+    if(ask == true) {
+        var deleted = {};
+        var index = $(this).data('delete');
 
-    deleted.task = index;
-    //console.log(deleted);
+        deleted.task = index;
+        //console.log(deleted);
 
-    $.ajax({
-        type: 'POST',
-        url: '/delete',
-        data: deleted,
-        success: function(data) {
-            if(data) {
-                getTasks();
-            } else {
-                console.log('error');
+        $.ajax({
+            type: 'POST',
+            url: '/delete',
+            data: deleted,
+            success: function (data) {
+                if (data) {
+                    getTasks();
+                } else {
+                    console.log('error');
+                }
             }
-        }
-    });
+        });
+    }
 }
 
