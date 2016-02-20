@@ -1,6 +1,7 @@
 $(document).ready(function(){
     getTasks();
     $('#task_form').on('submit', addTask);
+    $('.task_list').on('click', '.complete', completeTask);
 });
 
 function addTask() {
@@ -57,8 +58,31 @@ function appendTasks(data) {
 
         $el.append('<p>Task Id: ' + task.id + ' </p>');
         $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="complete" data-id = " '+ task.id_num +' ">Complete</button>');
-        $el.append('<button class="delete" data-id = " '+ task.id_num +' ">Delete</button>');
+        $el.append('<button class="complete" data-id = " '+ task.id +' ">Complete</button>');
+        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
+    });
+}
+
+function completeTask() {
+    event.preventDefault();
+
+    var completed = {};
+    var index = $(this).data('id');
+
+    completed.task = index;
+    console.log(completed);
+
+    $.ajax({
+        type: 'POST',
+        url: '/complete',
+        data: completed,
+        success: function(data) {
+            if(data) {
+               console.log('data posted');
+            } else {
+                console.log('error');
+            }
+        }
     });
 }
 
