@@ -1,5 +1,6 @@
 $(document).ready(function(){
     getTasks();
+    getComplete();
     $('#task_form').on('submit', addTask);
     $('.task_list').on('click', '.complete', completeTask);
 });
@@ -52,7 +53,7 @@ function getTasks() {
 function appendTasks(data) {
 
     data.forEach(function(task) {
-        $('.task_list').append('<div class="tasks"></div>');
+        $('.task_list').append('<div class="tasks" id="task-' + task.id + '"></div>');
 
         var $el = $('.task_list').children().last();
 
@@ -70,7 +71,7 @@ function completeTask() {
     var index = $(this).data('id');
 
     completed.task = index;
-    console.log(completed);
+    //console.log(completed);
 
     $.ajax({
         type: 'POST',
@@ -78,7 +79,7 @@ function completeTask() {
         data: completed,
         success: function(data) {
             if(data) {
-               console.log('data posted');
+                getComplete();
             } else {
                 console.log('error');
             }
@@ -86,3 +87,21 @@ function completeTask() {
     });
 }
 
+function getComplete() {
+    $.ajax({
+        type: 'GET',
+        url: '/complete',
+        success: function (data) {
+            showComplete(data);
+        }
+    });
+}
+
+function showComplete(data) {
+
+    data.forEach(function(task) {
+        $('#task-' + task.id).addClass('completed');
+        $('#task-' + task.id).find('.complete').addClass('checked');
+        $('#task-' + task.id).find('.complete').text('Done!');
+    });
+}
