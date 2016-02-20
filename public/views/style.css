@@ -1,0 +1,25 @@
+body {
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+#task_form {
+    width: 400px;
+    padding: 15px;
+    margin: 10px;
+    background-color: lightcoral;
+    border: 1px solid #000000;
+}
+
+.tasks {
+    width: 300px;
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #000000;
+    float: left;
+    background-color: linen;
+}
