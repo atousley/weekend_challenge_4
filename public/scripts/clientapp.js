@@ -59,7 +59,7 @@ function appendTasks(data) {
         var $el = $('.task_list').children().last();
 
         $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="complete" data-id = " '+ task.id +' ">Complete</button>');
+        $el.append('<button class="complete unchecked" data-id = " '+ task.id +' ">Complete</button>');
         $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
     });
 }
@@ -104,7 +104,7 @@ function showComplete(data) {
         var $el = $('.completed_list').children().last();
 
         $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="complete checked">Done!</button>');
+        $el.append('<button class="complete">Done!</button>');
         $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
 
         $('#task-' + task.id).remove();
