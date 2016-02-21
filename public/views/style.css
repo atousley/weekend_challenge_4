@@ -1,45 +1,105 @@
+* {
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
 body {
-    font-family: sans-serif;
+    width: 850px;
+    margin: 15px auto 15px auto;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #13003C;
 }
 
 h1 {
+    font-weight: 900;
     text-align: center;
     font-size: 40px;
+    text-transform: uppercase;
+    margin-top: 25px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 #task_form {
-    width: 300px;
+    width: 350px;
     padding: 10px;
-    margin: 10px;
-    background-color: lightcoral;
+    margin: 20px auto 10px auto;
+    text-align: center;
+    font-style: italic;
+    background-color: #F4FF4C;
     border: 1px solid #000000;
+}
+
+#task_form #task {
+    width: 200px;
+    padding: 5px;
+    margin: 0 5px 0 5px;
+    border: 1px solid;
+}
+
+#task_form #submit {
+    padding: 5px;
+    border-radius: 2px;
+    background-color: #0DFFDA;
 }
 
 .task_list {
-    width: 300px;
+    width: 400px;
     margin: 5px;
     padding: 5px;
     display: inline;
-    border: 1px solid #000000;
     float: left;
-    background-color: linen;
 }
 
-.complete {
-    margin: 0 5px 0 5px;
+.task_list .tasks {
+    border: 1px solid;
+    margin-top: 5px;
+    padding: 5px;
+    display: block;
+}
+
+.all_lists p {
+    margin-right: 0;
+    display: inline;
+    line-height: 35px;
+}
+
+.unchecked, .delete {
+    margin: 11px 2px;
+    float: right;
+    padding: 2px;
+    background-color: #0DFFDA;
+    border-radius: 2px;
+}
+
+.delete {
+    background-color: #EB0068;
 }
 
 .completed_list {
     width: 300px;
-    margin: 5px;
+    margin: 40px 5px 0;
     padding: 5px;
-    display: inline;
     border: 1px solid #000000;
     float: left;
-    background-color: lightgray;
+    background-color: #E5E5E5;
 }
 
-.unchecked {
-    background-color: lightsalmon;
+.completed_list h2 {
+    text-align: center;
 }
 
+.completed_list .tasks .completed {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.completed_list .delete {
+    margin: 0 0 0 10px;
+    float: none;
+}

@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 
-
 var connectionString = '';
 if(process.env.DATABASE_URL != undefined) {
     connectionString = process.env.DATABASE_URL + 'ssl';
@@ -15,7 +14,6 @@ router.post('/', function(req, res) {
         id: parseInt(req.body.id)
     };
 
-    //console.log(deleteTask);
     pg.connect(connectionString, function (err, client, done) {
         client.query("DELETE FROM tasks WHERE id = " + deleteTask.id,
             function (err, result) {

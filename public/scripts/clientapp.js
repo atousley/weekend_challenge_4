@@ -60,7 +60,7 @@ function appendTasks(data) {
 
         $el.append('<p>Task: ' + task.task + '</p>');
         $el.append('<button class="complete unchecked" data-id = " '+ task.id +' ">Complete</button>');
-        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
+        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>' + '<br>');
     });
 }
 
@@ -97,24 +97,18 @@ function getComplete() {
 }
 
 function showComplete(data) {
-    console.log(data);
-
     $('.completed_list').find('.tasks').remove();
 
     data.forEach(function(task) {
 
         $('#task-' + task.id).remove();
 
-
         $('.completed_list').append('<div class="tasks completed"></div>');
 
         var $el = $('.completed_list').children().last();
 
         $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="complete">Done!</button>');
         $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
-
-
     });
 }
 
