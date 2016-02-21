@@ -2,7 +2,7 @@ $(document).ready(function(){
     getTasks();
     $('#task_form').on('submit', addTask);
     $('.task_list').on('click', '.complete', completeTask);
-    $('.task_list').on('click', '.delete', deleteTask);
+    $('.all_lists').on('click', '.delete', deleteTask);
 });
 
 function addTask() {
@@ -44,7 +44,7 @@ function getTasks() {
         type: 'GET',
         url: '/get_all',
         success: function (data) {
-            $('.task_list').children().remove();
+            $('.all_lists').find('.tasks').remove();
             appendTasks(data);
             getComplete();
         }
@@ -70,7 +70,7 @@ function completeTask() {
     var completed = {};
     var index = $(this).data('id');
 
-    completed.task = index;
+    completed.id = index;
 
     $.ajax({
         type: 'POST',
@@ -97,21 +97,17 @@ function getComplete() {
 }
 
 function showComplete(data) {
-
+    console.log(data);
     data.forEach(function(task) {
-        $('#task-' + task.id).remove();
-
-        $('.completed_list').append('<div class="tasks" id="task-' + task.id + '"></div>');
+        $('.completed_list').append('<div class="tasks completed"></div>');
 
         var $el = $('.completed_list').children().last();
 
         $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="complete" data-id = " '+ task.id +' ">Complete</button>');
+        $el.append('<button class="complete checked">Done!</button>');
         $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
 
-        $el.addClass('completed');
-        $el.find('.complete').addClass('checked');
-        $el.find('.complete').text('Done!');
+        $('#task-' + task.id).remove();
     });
 }
 
@@ -123,7 +119,7 @@ function deleteTask() {
         var deleted = {};
         var index = $(this).data('delete');
 
-        deleted.task = index;
+        deleted.id = index;
 
         $.ajax({
             type: 'POST',

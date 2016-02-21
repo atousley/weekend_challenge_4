@@ -31,12 +31,14 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
+    console.log(req.body);
+
     var completeTask = {
-        task: parseInt(req.body.task)
+        id: parseInt(req.body.id)
     };
 
     pg.connect(connectionString, function (err, client, done) {
-        client.query("UPDATE tasks SET completed = true WHERE id = " + completeTask.task,
+        client.query("UPDATE tasks SET completed = true WHERE id = " + completeTask.id,
             function (err, result) {
                 done();
 

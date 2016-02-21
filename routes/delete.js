@@ -12,11 +12,12 @@ if(process.env.DATABASE_URL != undefined) {
 
 router.post('/', function(req, res) {
     var deleteTask = {
-        task: parseInt(req.body.task)
+        id: parseInt(req.body.id)
     };
 
+    //console.log(deleteTask);
     pg.connect(connectionString, function (err, client, done) {
-        client.query("DELETE FROM tasks WHERE id = " + deleteTask.task,
+        client.query("DELETE FROM tasks WHERE id = " + deleteTask.id,
             function (err, result) {
                 done();
 
@@ -31,23 +32,3 @@ router.post('/', function(req, res) {
 });
 
 module.exports = router;
-
-//router.get('/', function(req, res) {
-//    var results = [];
-//    pg.connect(connectionString, function(err, client, done) {
-//        var query = client.query('SELECT * FROM tasks WHERE completed = true;');
-//
-//        query.on('row', function(row) {
-//            results.push(row);
-//        });
-//
-//        query.on('end', function() {
-//            client.end();
-//            return res.json(results);
-//        });
-//
-//        if(err) {
-//            console.log(err);
-//        }
-//    });
-//});
