@@ -30,7 +30,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    console.log(req.body);
 
     var completeTask = {
         id: parseInt(req.body.id)
