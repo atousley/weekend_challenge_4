@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var pg = require('pg');
 var new_task = require('./routes/new_task');
 var get_all = require('./routes/get_all');
 var complete = require('./routes/complete');
@@ -16,11 +15,11 @@ app.use('/get_all', get_all);
 app.use('/complete', complete);
 app.use('/delete', deleteTask);
 
-
-app.get('/*', function  (req, res) {
-    var file = req.params[0] || '/views/index.html';
-    res.sendFile(path.join(__dirname, './public', file));
-});
+app.use(express.static('public'));
+app.use(express.static('public/views'));
+app.use(express.static('public/scripts'));
+app.use(express.static('public/styles'));
+app.use(express.static('public/vendors'));
 
 app.set('port', process.env.PORT || 5000);
 app.listen(app.get('port'), function() {

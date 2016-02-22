@@ -14,53 +14,27 @@ function addTask() {
         results[field.name] = field.value;
     });
 
-    $.ajax({
-        type: 'POST',
-        url: '/new_task',
-        data: results,
-        success: function(data) {
+    $.post('/new_task', results, function(data) {
             if(data) {
                 getNewTask();
             } else {
                 console.log('error');
             }
             $('#task_form').find('input[type=text]').val('');
-        }
     });
 }
 
 function getNewTask() {
-    $.ajax({
-        type: 'GET',
-        url: '/new_task',
-        success: function (data) {
+    $.get('/new_task', function(data) {
             appendTasks(data);
-        }
     });
 }
 
 function getTasks() {
-    $.ajax({
-        type: 'GET',
-        url: '/get_all',
-        success: function (data) {
+    $.get('/get_all', function(data) {
             $('.all_lists').find('.tasks').remove();
             appendTasks(data);
             getComplete();
-        }
-    });
-}
-
-function appendTasks(data) {
-
-    data.forEach(function(task) {
-        $('.task_list').append('<div class="tasks" id="task-' + task.id + '"></div>');
-
-        var $el = $('.task_list').children().last();
-
-        $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="complete unchecked" data-id = " '+ task.id +' ">Complete</button>');
-        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>' + '<br>');
     });
 }
 
@@ -84,31 +58,15 @@ function completeTask() {
             }
         }
     });
+    //could write this as a put:
+    //type: 'PUT',
+    //url: '/complete' + completed,
+    //success
 }
 
 function getComplete() {
-    $.ajax({
-        type: 'GET',
-        url: '/complete',
-        success: function (data) {
+    $.get('/complete', function (data) {
             showComplete(data);
-        }
-    });
-}
-
-function showComplete(data) {
-    $('.completed_list').find('.tasks').remove();
-
-    data.forEach(function(task) {
-
-        $('#task-' + task.id).remove();
-
-        $('.completed_list').append('<div class="tasks completed"></div>');
-
-        var $el = $('.completed_list').children().last();
-
-        $el.append('<p>Task: ' + task.task + '</p>');
-        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
     });
 }
 
@@ -135,4 +93,33 @@ function deleteTask() {
             }
         });
     }
+}
+
+function appendTasks(data) {
+
+    data.forEach(function(task) {
+        $('.task_list').append('<div class="tasks" id="task-' + task.id + '"></div>');
+
+        var $el = $('.task_list').children().last();
+
+        $el.append('<p>Task: ' + task.task + '</p>');
+        $el.append('<button class="complete unchecked" data-id = " '+ task.id +' ">Complete</button>');
+        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>' + '<br>');
+    });
+}
+
+function showComplete(data) {
+    $('.completed_list').find('.tasks').remove();
+
+    data.forEach(function(task) {
+
+        $('#task-' + task.id).remove();
+
+        $('.completed_list').append('<div class="tasks completed"></div>');
+
+        var $el = $('.completed_list').children().last();
+
+        $el.append('<p>Task: ' + task.task + '</p>');
+        $el.append('<button class="delete" data-delete = " '+ task.id +' ">Delete</button>');
+    });
 }

@@ -35,8 +35,15 @@ router.post('/', function(req, res) {
         id: parseInt(req.body.id)
     };
 
+    //could write this as a PUT request:
+    //router.put('/:id', function(req, res) {
+    // var completeTask = req.params.id;
+    //}
+
     pg.connect(connectionString, function (err, client, done) {
         client.query("UPDATE tasks SET completed = true WHERE id = " + completeTask.id,
+            //could write this: "...WHERE id = $1",
+            //[completeTask.id],
             function (err, result) {
                 done();
 
